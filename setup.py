@@ -17,7 +17,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "rag-directory=rag_directory.__main__:main",
+            "rag-directory=rag_directory.cli:main",
         ],
     },
     author="Axel Stenson",
