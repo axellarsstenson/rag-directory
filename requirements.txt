@@ -1,0 +1,8 @@
+sentence-transformers>=2.2.0
+rich>=13.0.0
+requests>=2.28.0
+PyPDF2>=3.0.0
+markdown>=3.4.0
+html2text>=2020.1.16
+scikit-learn>=1.0.0
+numpy>=1.21.0
