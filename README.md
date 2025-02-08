@@ -19,6 +19,9 @@ pip install rag-directory
 # Using the command-line tool
 rag-directory llama2:latest [directory]
 
+# Or if you want to run on the directory that you are in
+rag-directory llama2:latest
+
 # Or using Python
 from rag_directory.cli import RAGTool
 rag = RAGTool("llama2:latest")
