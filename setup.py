@@ -25,7 +25,7 @@ setup(
     description="A RAG tool for local directories using Ollama models",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://gitlab.com/axellarsstenson/rag-directory",
+    url="https://github.com/axellarsstenson/rag-directory",
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
