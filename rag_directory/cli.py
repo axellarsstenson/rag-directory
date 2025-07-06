@@ -150,40 +150,44 @@ class RAGTool:
             return f"Error querying Ollama: {str(e)}"
 
     def chat_loop(self) -> None:
-        """Start an interactive chat loop with the user."""
-        self.console.print("\nStarting chat session. Type 'exit' to quit.", style="bold blue")
-        
-        while True:
-            query = Prompt.ask("\nWhat would you like to know")
-            
-            if query.lower() == 'exit':
-                break
-                
-            # Find relevant chunks
-            relevant_chunks = self.find_relevant_chunks(query)
-            
-            if not relevant_chunks:
-                self.console.print("No relevant information found.", style="yellow")
-                continue
-                
-            # Combine relevant chunks into context
-            context = "\n\n".join([
-                self.documents[chunk['file_path']][chunk['chunk_idx']]
-                for chunk in relevant_chunks
-            ])
-            
-            # Query Ollama
-            response = self.query_ollama(query, context)
-            
-            # Print response
-            self.console.print("\nResponse:", style="bold")
-            self.console.print(response)
-            
-            # Optionally print sources
-            sources = set(chunk['file_path'] for chunk in relevant_chunks)
-            self.console.print("\nSources:", style="dim")
-            for source in sources:
-                self.console.print(f"- {source}")
+    """Start an interactive chat loop with the user."""
+    self.console.print("\nStarting chat session. Type 'exit' to quit.", style="bold blue")
+    
+    while True:
+        query = Prompt.ask("\nWhat would you like to know").strip()
+
+        if not query:
+            continue
+
+        if query.lower() == 'exit':
+            break
+
+        # Find relevant chunks
+        relevant_chunks = self.find_relevant_chunks(query)
+
+        if not relevant_chunks:
+            self.console.print("No relevant information found.", style="yellow")
+            continue
+
+        # Combine relevant chunks into context
+        context = "\n\n".join([
+            self.documents[chunk['file_path']][chunk['chunk_idx']]
+            for chunk in relevant_chunks
+        ])
+
+        # Query Ollama
+        response = self.query_ollama(query, context)
+
+        # Print response
+        self.console.print("\nResponse:", style="bold")
+        self.console.print(response)
+
+        # Optionally print sources
+        sources = set(chunk['file_path'] for chunk in relevant_chunks)
+        self.console.print("\nSources:", style="dim")
+        for source in sources:
+            self.console.print(f"- {source}")
+
 
 def main():
     parser = argparse.ArgumentParser(description='RAG Directory Tool')
